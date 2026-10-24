@@ -1100,3 +1100,66 @@ print("Users:", nusers)
 print("Products:", nprod)
 print("Maximum sequence length:", ntime)
 print("==========================================")
+# ============================================================
+# SAVE PREPROCESSED DATA
+# ============================================================
+
+import pickle
+import os
+
+print("\nSaving preprocessed Dunnhumby data...")
+
+os.makedirs("processed", exist_ok=True)
+
+processed_data = {
+    # Main training data
+    "train_input": train_input,
+    "train_output": train_output,
+
+    # Validation data
+    "val_input": val_input,
+    "val_output": val_output,
+
+    # Test data
+    "test_input": test_input,
+    "test_output": test_output,
+
+    # Sequence/time covariates
+    "train_seq_input": train_seq_input,
+    "val_seq_input": val_seq_input,
+    "test_seq_input": test_seq_input,
+
+    "train_hour_input": train_hour_input,
+    "val_hour_input": val_hour_input,
+    "test_hour_input": test_hour_input,
+
+    # Last basket information
+    "train_last": train_last,
+    "val_last": val_last,
+    "test_last": test_last,
+
+    # Orders
+    "train_orders": train_orders,
+    "val_orders": val_orders,
+    "test_orders": test_orders,
+
+    # Dataset dimensions
+    "nusers": nusers,
+    "ntime": ntime,
+    "nprod": nprod,
+    "seq_dim": seq_dim,
+    "hour_dim": hour_dim
+}
+
+with open(
+    "processed/dunnhumby_preprocessed.pkl",
+    "wb"
+) as f:
+    pickle.dump(
+        processed_data,
+        f,
+        protocol=pickle.HIGHEST_PROTOCOL
+    )
+
+print("Saved successfully!")
+print("File: processed/dunnhumby_preprocessed.pkl")
